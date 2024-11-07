@@ -23,9 +23,4 @@ class MainPage(Page):
 
     def click_secondary(self):
         self.find_element(*self.SECONDARY_BTN).click()
-
-
-
-    def verify_cant_find_account(self):
-        self.wait_for_element_to_appear(*self.CANT_FIND_ACCOUNT)
         sleep(3)
