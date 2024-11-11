@@ -35,5 +35,8 @@ class SecondaryPage(Page):
         self.find_element(*self.APPLY_FILTER_BTN).click()
 
     def verify_all_cards(self):
-        assert self.find_element(*self.FOR_SALE_TAGS)
+        for tag in self.find_element(*self.FOR_SALE_TAGS):
+            assert tag.is_displayed(), "A card is missing 'For Sale' tag."
+
+        print("All cards have 'For Sale' tag.")
 
