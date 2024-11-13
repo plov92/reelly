@@ -17,6 +17,7 @@ class SecondaryPage(Page):
     WANT_TO_SELL_BTN = (By.XPATH, "//div[contains(text(), 'Want to sell')]")
     APPLY_FILTER_BTN = (By.CSS_SELECTOR, "[wized='applyFilterButtonMLS']")
     FOR_SALE_TAGS = (By.CSS_SELECTOR, "[wized='saleTagMLS']")
+    LISTING_CARDS = (By.CSS_SELECTOR, "[wized='listingCardMLS']")
 
     def click_filters(self):
         # self.wait_for_element_to_appear(self.FILTERS_BTN).click()
@@ -35,8 +36,10 @@ class SecondaryPage(Page):
         self.find_element(*self.APPLY_FILTER_BTN).click()
 
     def verify_all_cards(self):
-        for tag in self.find_element(*self.FOR_SALE_TAGS):
-            assert tag.is_displayed(), "A card is missing 'For Sale' tag."
+        listing_cards = len(self.find_elements(*self.LISTING_CARDS))
+        for_sale_tags = len(self.find_elements(*self.FOR_SALE_TAGS))
+        missing_for_sale_tags = listing_cards - for_sale_tags
+        assert listing_cards == for_sale_tags, f"{missing_for_sale_tags} card(s) missing 'For Sale' tag."
 
         print("All cards have 'For Sale' tag.")
 
