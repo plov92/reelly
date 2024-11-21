@@ -14,18 +14,42 @@ def browser_init(context, scenario_name):
     :param context: Behave context
     """
     # Define Chrome options
-    options = Options()
-    options.add_argument("--start-maximized")
-    # Uncomment the line below for headless mode
-    # options.add_argument("--headless")
+    # mobile_emulation = {"deviceName": "Galaxy S8"}
+    # options = Options()
+    # options.add_argument("--start-maximized")
+    # options.add_experimental_option("mobileEmulation", mobile_emulation)
+    #
+    # # Uncomment the line below for headless mode
+    # # options.add_argument("--headless")
+    #
+    #
+    # try:
+    #     # Use WebDriverManager to download and set up ChromeDriver
+    #     service = Service(ChromeDriverManager().install())
+    #     context.driver = webdriver.Chrome(service=service, options=options)
+    #     # chrome_options = webdriver.ChromeOptions()
+    #
+    # except Exception as e:
+    #     logger.error(f"Error initializing WebDriver: {e}")
+    #     raise
 
-    try:
-        # Use WebDriverManager to download and set up ChromeDriver
-        service = Service(ChromeDriverManager().install())
-        context.driver = webdriver.Chrome(service=service, options=options)
-    except Exception as e:
-        logger.error(f"Error initializing WebDriver: {e}")
-        raise
+    ### BROWSERSTACK ###
+    # Register for BrowserStack, then grab it from https://www.browserstack.com/accounts/settings
+    bs_user = 'rustamuktamov_zgtZ8P'
+    bs_key = 'VBPqASqmQjrHwKpMawaV'
+    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+
+    options = Options()
+    bstack_options = {
+        "deviceName" : "iPhone 13",
+        "osVersion" : "18",
+        'browserName': 'chromium',
+        "deviceOrientation" : "portrait",
+        'sessionName': scenario_name,
+    }
+    options.set_capability('bstack:options', bstack_options)
+    context.driver = webdriver.Remote(command_executor=url, options=options)
+
 
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, timeout=10)

@@ -9,7 +9,7 @@ class MainPage(Page):
     INPUT_EMAIL = (By.ID, "email-2")
     INPUT_PASSWORD = (By.ID, "field")
     CONTINUE = (By.XPATH, "//a[contains(text(), 'Continue')]")
-    SECONDARY_BTN = (By.XPATH, "//div[contains(text(), 'Secondary')]")
+    SECONDARY_BTN = (By.XPATH, "//a[contains(text(), 'Secondary')]")
 
 
     def input_email(self, email):

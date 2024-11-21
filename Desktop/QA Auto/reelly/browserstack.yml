@@ -1,10 +1,11 @@
 userName: rustamuktamov_zgtZ8P
 accessKey: VBPqASqmQjrHwKpMawaV
+framework: behave
 platforms:
-  - os: Windows
-    osVersion: 11
-    browserName: Chrome
-    browserVersion: latest
+  - deviceName: iPhone 13
+    osVersion: 18
+    browserName: chromium
+    deviceOrientation: portrait
   - os: OS X
     osVersion: Monterey
     browserName: Safari
@@ -15,10 +16,5 @@ platforms:
     deviceOrientation: portrait
 parallelsPerPlatform: 1
 browserstackLocal: true
-buildName: reelly-test-automation
-buildIdentifier: ${BUILD_NUMBER}
-projectName: Reelly Test Automation
-debug: true
-networkLogs: true
-consoleLogs: info
-framework: behave
+buildName: browserstack-build-1
+projectName: BrowserStack Sample
